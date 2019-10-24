@@ -1,0 +1,82 @@
+<ion-header>
+  <ion-toolbar color = "primary">
+    <ion-buttons>
+        <ion-menu-button *ngIf="value=='login'"></ion-menu-button>
+        <ion-button *ngIf="value=='signup'" (click)="switchSlide(0)"><ion-icon name="arrow-round-back"></ion-icon></ion-button>
+        <ion-title *ngIf="value == 'login'">Ayoos Login</ion-title>
+        <ion-title *ngIf="value == 'signup'">Join Ayoos</ion-title>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-slides #slides class="swiper-no-swiping">
+    <ion-slide>
+        <ion-grid margin-top>
+            <ion-row>
+              <ion-col>
+
+              </ion-col>
+              <ion-col>
+                  <ion-img class="login-img" src="assets/images/login-signup.jpg"></ion-img>
+              </ion-col>
+              <ion-col>
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-margin-top">
+                <form [formGroup]="loginForm">
+                    <ion-item>
+                        <ion-label position="floating">Username or email</ion-label>
+                        <ion-input formControlName="username"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="floating">Password</ion-label>
+                        <ion-input formControlName="password" type="password"></ion-input>
+                      </ion-item>
+                      <ion-item lines="none">
+                        <ion-text class="ion-padding margin-top" slot="end">Don't have an account ? <ion-text (click)="switchSlide(1)" color="primary">click here.</ion-text></ion-text>
+                      </ion-item>
+                        <ion-button (click)="login()" expand="block" margin-top margin-bottom>Login</ion-button>
+                </form>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    </ion-slide>
+    <ion-slide>
+        <ion-grid margin-top>
+            <ion-row>
+              <ion-col>
+
+              </ion-col>
+              <ion-col>
+                  <ion-img class="login-img" src="assets/images/login-signup.jpg"></ion-img>
+              </ion-col>
+              <ion-col>
+
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col class="ion-margin-top">
+                <form [formGroup]="loginForm">
+                    <ion-item>
+                        <ion-label position="floating">Username or email</ion-label>
+                        <ion-input formControlName="username"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                        <ion-label position="floating">Email</ion-label>
+                        <ion-input formControlName="password"></ion-input>
+                      </ion-item>
+                      <ion-item>
+                          <ion-label position="floating">Password</ion-label>
+                          <ion-input formControlName="password" type="password"></ion-input>
+                      </ion-item>
+                        <ion-button expand="block" margin-top margin-bottom>Register</ion-button>
+                </form>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+    </ion-slide>
+  </ion-slides>
+</ion-content>
