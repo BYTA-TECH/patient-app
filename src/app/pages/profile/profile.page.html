@@ -1,0 +1,117 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-menu-button *ngIf="!editMode"></ion-menu-button>
+      <ion-button *ngIf="editMode" (click)="toggleEditable()" slot="end">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+      <ion-title *ngIf="!editMode">Profile</ion-title>
+      <ion-title *ngIf="editMode">Edit Profile</ion-title>
+      <ion-button *ngIf="!editMode" (click)="toggleEditable()" slot="end">
+        <ion-icon name="create"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="editMode" (click)="toggleEditable()" slot="end">save</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row>
+      <ion-col></ion-col>
+      <ion-col>
+        <div class="circle">
+          <ion-icon class="large" name="person"></ion-icon>
+        </div>
+      </ion-col>
+      <ion-col></ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-icon slot="start" name="contact"></ion-icon>
+          <ion-label position="floating">Name</ion-label>
+          <ion-input  [(ngModel)]="patient.name" [readonly]="!editMode"></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col>
+          <ion-item>
+              <ion-icon slot="start" name="calendar"></ion-icon>
+            <ion-label position="floating">D.O.B</ion-label>
+            <ion-datetime displayFormat="YYYY-MM-DD"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+            <ion-item>
+                <ion-icon slot="start" name="transgender"></ion-icon>
+                <ion-label>Gender</ion-label>
+                <ion-select placeholder="Select One">
+                  <ion-select-option value="f">Female</ion-select-option>
+                  <ion-select-option value="m">Male</ion-select-option>
+                </ion-select>
+              </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+              <ion-icon slot="start" name="mail"></ion-icon>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+              <ion-icon slot="start" name="call"></ion-icon>
+              <ion-label position="floating">Phone</ion-label>
+              <ion-input></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-icon slot="start" name="pin"></ion-icon>
+            <ion-label slot="start">Address</ion-label>
+            <ion-button (click)="toggleshowAddress()" slot="end" fill="none">
+                <ion-icon *ngIf="showAddress" slot="icon-only" name="arrow-dropright"></ion-icon>
+                <ion-icon *ngIf="!showAddress" slot="icon-only" name="arrow-dropdown"></ion-icon> 
+            </ion-button>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <ion-card *ngIf="showAddress">
+              <ion-item>
+                  <ion-label position="floating">City</ion-label>
+                  <ion-input></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">District</ion-label>
+                  <ion-input></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">State</ion-label>
+                  <ion-input></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">Country</ion-label>
+                  <ion-input></ion-input>
+              </ion-item>
+              <ion-item>
+                  <ion-label position="floating">Zipcode</ion-label>
+                  <ion-input></ion-input>
+              </ion-item>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+  </ion-grid>
+
+</ion-content>

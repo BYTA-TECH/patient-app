@@ -1,3 +1,5 @@
+import { Util } from './services/util';
+import { KeycloakService } from 'src/app/services/security/keycloak.service';
 import { Component } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
@@ -15,13 +17,20 @@ export class AppComponent {
       title: 'Home',
       url: '/home',
       icon: 'home'
+    },
+    {
+      title: 'Profile',
+      url: '/profile',
+      icon: 'person'
     }
   ];
 
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private keycloakService: KeycloakService,
+    private util: Util
   ) {
     this.initializeApp();
   }
@@ -31,5 +40,10 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  logout() {
+    this.keycloakService.logout();
+    this.util.createToast('You\'ve been logged out');
   }
 }
