@@ -1,0 +1,71 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-menu-button>
+      </ion-menu-button>
+    </ion-buttons>
+    <ion-title text-center margin-bottom><strong> My Appointments</strong></ion-title>
+  </ion-toolbar>
+  <ion-segment>
+    <ion-segment-button (ionSelect)="segmentPrevious()"><strong>Previous</strong></ion-segment-button>
+    <ion-segment-button (ionSelect)="segmentToday()" checked><strong>Today</strong></ion-segment-button>
+    <ion-segment-button (ionSelect)="segmentUpcoming()"><strong>Upcoming</strong></ion-segment-button>
+  </ion-segment>
+</ion-header>
+
+<ion-content padding>
+  <ion-select multiple="true" placeholder="Filters">
+    <ion-select-option selected value="all">All</ion-select-option>
+    <ion-select-option value="approved" >Approved</ion-select-option>
+    <ion-select-option value="unapproved" >Unapproved</ion-select-option>
+    <ion-select-option value="cancelled">Cancelled</ion-select-option>
+    <ion-select-option value="completed">Completed</ion-select-option>
+  </ion-select>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div *ngIf="appointmentsSegment">
+    <ion-row *ngFor="let appointment of appointmentsSegment" (click)="routeToDetailView(appointment.id)" >
+      <ion-col>
+        <ion-card>
+          <ion-item>
+            <ion-icon name="timer" slot="end" *ngIf="segment=='Today'||segment=='Upcoming'"></ion-icon>
+            <countdown-timer [end]="appointment.date" slot="end" *ngIf="segment=='Today'||segment=='Upcoming'">
+            </countdown-timer>
+            <ion-label *ngIf="segment=='Today'">{{appointment.date.getHours()}} : {{appointment.date.getMinutes()}}
+            </ion-label>
+            <ion-label *ngIf="segment=='Previous'||segment=='Upcoming'">
+              {{appointment.date.getDate()}}-{{appointment.date.getMonth()}}-{{appointment.date.getUTCFullYear()}}
+            </ion-label>
+          </ion-item>
+          <ion-item lines="none">
+            <ion-avatar slot="start">
+              <ion-img src="assets/doctor3.png" class="img"></ion-img>
+            </ion-avatar>
+            <ion-label><strong>{{appointment.doctor.name}}</strong></ion-label>
+            <ion-card-subtitle>{{appointment.doctor.specialization}}</ion-card-subtitle>
+          </ion-item>
+          <ion-item lines='none'>
+            <ion-badge color="primary" slot="end" *ngIf="appointment.status=='approved'">{{appointment.status}}
+            </ion-badge>
+            <ion-badge color="danger" slot="end" *ngIf="appointment.status=='unapproved'">{{appointment.status}}
+            </ion-badge>
+            <ion-badge color="success" slot="end" *ngIf="appointment.status=='completed'">{{appointment.status}}
+            </ion-badge>
+            <ion-badge color="secondary" slot="end" *ngIf="appointment.status=='cancelled'">{{appointment.status}}
+            </ion-badge>
+            <ion-icon name="pin"></ion-icon>
+           
+             <ion-label>  {{appointment.doctor.distance?.toFixed()}} Kms Away</ion-label>
+           
+          </ion-item>
+          <ion-card-content>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </div>
+
+
+
+</ion-content>

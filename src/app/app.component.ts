@@ -22,6 +22,11 @@ export class AppComponent {
       title: 'Profile',
       url: '/profile',
       icon: 'person'
+    },
+    {
+      title: 'Appointments',
+      url: '/appointments',
+      icon: 'calendar'
     }
   ];
 
