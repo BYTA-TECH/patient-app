@@ -22,6 +22,7 @@ const routes: Routes = [
     loadChildren: './pages/profile/profile.module#ProfilePageModule' 
   },
   { path: 'appointments', loadChildren: './pages/my-appointments/my-appointments.module#MyAppointmentsPageModule' },
+  { path: 'medical-records', loadChildren: './pages/medical-records/medical-records.module#MedicalRecordsPageModule' },
 ];
 
 @NgModule({

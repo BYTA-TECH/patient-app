@@ -27,6 +27,11 @@ export class AppComponent {
       title: 'Appointments',
       url: '/appointments',
       icon: 'calendar'
+    },
+    {
+      title: 'Medical Records',
+      url: '/medical-records',
+      icon: 'filing'
     }
   ];
 

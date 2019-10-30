@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons>
+      <ion-menu-button slot="start"></ion-menu-button>
+    </ion-buttons>
+    <ion-title text-center><strong>Medical Records</strong></ion-title>
+  </ion-toolbar>
+
+</ion-header>
+<ion-content padding>
+  <div *ngIf="segment=='uploaded'">
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="presentModal()">
+        <ion-icon name="add"></ion-icon>
+      </ion-fab-button>
+    </ion-fab>
+  </div>
+  <ion-card *ngFor="let medicalHistory of medicalHistories"
+    (click)="routeToDetailView(medicalHistory.ref)">
+    <ion-card-content>
+      <ion-item>
+        <ion-label><strong>#{{medicalHistory.ref}}</strong></ion-label>
+        <ion-badge color="primary">{{medicalHistory.chronicDisease.toUpperCase()}}</ion-badge>
+        <ion-icon name="clipboard" slot="end"
+          *ngIf="medicalHistory.type=='single'"></ion-icon>
+        <ion-icon name="filing" slot="end"
+          *ngIf="medicalHistory.type=='collection'"></ion-icon>
+      </ion-item>
+      <ion-item *ngIf="medicalHistory.type=='collection'" lines="none">
+        <ion-label>{{medicalHistory.medicalRecord.length}} Records</ion-label>
+        <ion-label>For : {{medicalHistory.patient}}</ion-label>
+      </ion-item>
+      <div *ngIf="medicalHistory.type=='single'">
+        <ion-item lines="none">
+          <ion-label>{{medicalHistory.medicalRecord[0].doctor.name}}</ion-label>
+          <ion-label>For : {{medicalHistory.patient}}</ion-label>
+        </ion-item>
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

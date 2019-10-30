@@ -1,0 +1,46 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title text-center><strong>Upload Your Records</strong></ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-item>
+    <ion-input clearinput placeholder="Clinic/Hospital/Doctor"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Date</ion-label>
+    <ion-datetime displayFormat="DD MMM YYYY H:mm" min="2019" max="2025"
+      value="2019-03-17T11:06Z"></ion-datetime>
+  </ion-item>
+  <ion-item>
+    <ion-label>Type</ion-label>
+    <ion-select>
+      <ion-select-option>Prescription</ion-select-option>
+      <ion-select-option>Report</ion-select-option>
+      <ion-select-option>Other</ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      Record For
+    </ion-label>
+    <ion-label>Abilash Sethu</ion-label>
+    <ion-buttons (click)="presentAddmemberPop()"> 
+      <ion-icon name="create"></ion-icon>
+    </ion-buttons>
+  </ion-item>
+  <ion-item>
+    <ion-textarea placeholder="Enter more information here..."></ion-textarea>
+  </ion-item>
+  <ion-item>
+    <ion-label>Upload Record</ion-label>
+    <ion-button slot="end" (click)="presentActionSheet()">
+      <ion-icon name="attach"></ion-icon>
+    </ion-button>
+  </ion-item>
+  <ion-item lines="none" padding>
+    <ion-button size="default" class="halfButton">Upload</ion-button>
+    <ion-button (click)="dismissMe()" size="default" class="halfButton">Cancel</ion-button>
+  </ion-item>
+
+</ion-content>
