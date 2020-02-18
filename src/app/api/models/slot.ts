@@ -1,6 +1,11 @@
 /* tslint:disable */
+import { Doctor } from './doctor';
+import { Status } from './status';
 export interface Slot {
-  day?: string;
-  endTime?: string;
-  startTime?: string;
+  date?: string;
+  doctor?: Doctor;
+  fromTime?: string;
+  id?: number;
+  statuses?: Array<Status>;
+  toTime?: string;
 }

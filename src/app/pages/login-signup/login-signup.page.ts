@@ -69,6 +69,8 @@ export class LoginSignupPage implements OnInit {
     this.keycloakService.authenticate(
       { username: this.username, password: this.password },
       () => {
+        this.patientDTO.idpCode=this.username;
+        this.createPatient();
         this.util.navigateRoot();
         this.util.createToast('Logged in successfully' , 'checkmark-circle-outline');
       },
@@ -83,8 +85,7 @@ export class LoginSignupPage implements OnInit {
     const user = { username: this.username, email: this.email };
     this.keycloakService.createAccount(user, this.password,
       () => {
-        this.createPatient();
-        // this.login();
+        this.login();
       },
       err => {
         if (err.response.status === 409) {

@@ -1,3 +1,5 @@
+import { PatientDTO } from './../../api/models/patient-dto';
+import { CommandResourceService } from 'src/app/api/services';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -10,12 +12,12 @@ export class ProfilePage implements OnInit {
   showAddress = false;
   editMode = false;
 
-  patient = {
-    name: 'Prince'
-  };
+  patient: PatientDTO = {};
   tempPatient = this.patient;
 
-  constructor() { }
+  constructor(
+    private command: CommandResourceService
+  ) { }
 
   ngOnInit() {
   }
@@ -28,4 +30,7 @@ export class ProfilePage implements OnInit {
     this.editMode = !this.editMode;
   }
 
+  update() {
+    this.command.updatePatientUsingPUT(this.patient).subscribe();
+  }
 }

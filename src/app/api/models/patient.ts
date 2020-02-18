@@ -1,4 +1,5 @@
 /* tslint:disable */
+import { MedicalCase } from './medical-case';
 export interface Patient {
   createdDate?: string;
   dmsId?: string;
@@ -8,5 +9,6 @@ export interface Patient {
   image?: string;
   imageContentType?: string;
   location?: string;
+  medicalCases?: Array<MedicalCase>;
   phoneNumber?: number;
 }

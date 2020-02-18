@@ -4,13 +4,13 @@ import { Injectable } from '@angular/core';
 
 
 export const authConfig: AuthConfig = {
-    issuer: 'http://dev.servers.divisosofttech.com:8888/auth/realms/Ayoos',
+    issuer: 'http://35.211.83.193:8099/auth/realms/Ayoos',
     redirectUri: window.location.origin,
     clientId: 'account',
     scope: 'openid profile email',
-    dummyClientSecret: '28fa0a12-3920-421e-81ec-afdd525ceb1a',
-    tokenEndpoint: 'http://dev.servers.divisosofttech.com:8888/auth/realms/Ayoos/protocol/openid-connect/token',
-    userinfoEndpoint: 'http://dev.servers.divisosofttech.com:8888/auth/realms/Ayoos/protocol/openid-connect/userinfo',
+    dummyClientSecret: 'd5a6fa20-eb79-40b0-8193-a9370e2e7b44',
+    tokenEndpoint: 'http://35.211.83.193:8099/auth/realms/Ayoos/protocol/openid-connect/token',
+    userinfoEndpoint: 'http://35.211.83.193:8099/auth/realms/Ayoos/protocol/openid-connect/userinfo',
     oidc: false,
     requireHttps: false
   };
@@ -36,21 +36,21 @@ export class AuthGuardConfig {
         // Optional
         this.oauthService.setupAutomaticSilentRefresh();
 
-        // this.oauthService.events.subscribe(e => {
-        //   // tslint:disable-next-line:no-console
-        //   console.debug('oauth/oidc event', e);
-        // });
+        this.oauthService.events.subscribe(e => {
+          // tslint:disable-next-line:no-console
+          console.debug('oauth/oidc event', e);
+        });
 
-        // this.oauthService.events
-        //   .pipe(filter(e => e.type === 'session_terminated'))
-        //   .subscribe(e => {
-        //     console.debug('Your session has been terminated!');
-        //   });
+        this.oauthService.events
+          .pipe(filter(e => e.type === 'session_terminated'))
+          .subscribe(e => {
+            console.debug('Your session has been terminated!');
+          });
 
-        // this.oauthService.events
-        //   .pipe(filter(e => e.type === 'token_received'))
-        //   .subscribe(e => {
-        //     // this.oauthService.loadUserProfile();
-        //   });
+        this.oauthService.events
+          .pipe(filter(e => e.type === 'token_received'))
+          .subscribe(e => {
+            // this.oauthService.loadUserProfile();
+          });
     }
 }

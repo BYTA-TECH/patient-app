@@ -11,7 +11,7 @@ const routes: Routes = [
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule),
-    canActivate: [AuthGuardService]
+   // canActivate: [AuthGuardService]
   },
   {
     path: 'login',
@@ -19,10 +19,20 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    loadChildren: './pages/profile/profile.module#ProfilePageModule' 
+    loadChildren: './pages/profile/profile.module#ProfilePageModule'
   },
   { path: 'appointments', loadChildren: './pages/my-appointments/my-appointments.module#MyAppointmentsPageModule' },
   { path: 'medical-records', loadChildren: './pages/medical-records/medical-records.module#MedicalRecordsPageModule' },
+  { path: 'doctor-booking', loadChildren: './pages/doctor-booking/doctor-booking.module#DoctorBookingPageModule' },
+  {
+    path: 'doctor-booking/:id',
+    loadChildren: './pages/doctor-booking/doctor-booking.module#DoctorBookingPageModule',
+
+  },
+  { path: 'doctors-list', loadChildren: './pages/doctors-list/doctors-list.module#DoctorsListPageModule' },
+  { path: 'qualifications-list', loadChildren: './pages/qualifications-list/qualifications-list.module#QualificationsListPageModule' },
+
+
 ];
 
 @NgModule({

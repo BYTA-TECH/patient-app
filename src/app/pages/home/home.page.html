@@ -3,12 +3,110 @@
     <ion-buttons>
       <ion-menu-button></ion-menu-button>
       <ion-title>Ayyos</ion-title>
+      <ion-badge class="badge" color="danger" >3</ion-badge>
       <ion-button slot="end"><ion-icon slot="icon-only" name="search"></ion-icon></ion-button>
       <ion-button slot="end"><ion-icon slot="icon-only" name="notifications"></ion-icon></ion-button>
     </ion-buttons>
   </ion-toolbar>
+
+
+  <ion-toolbar color="primary">
+    <ion-buttons margin-top>     
+      &nbsp;&nbsp;&nbsp;&nbsp;
+    </ion-buttons>
+    <ion-searchbar placeholder="Search for your health ..." class="border" [(ngModel)]="searchTerm" (click)="presentFullTextSearch()" ></ion-searchbar>
+  </ion-toolbar>
+  <ion-segment scrollable>
+    <ion-segment-button (ionSelect)="segmentDoctors($event)" [routerLink]="['/','doctors-list']">
+      <ion-icon name="contacts"></ion-icon>
+      <ion-label>Doctors</ion-label>  
+    </ion-segment-button>
+    <ion-segment-button (ionSelect)="segmentSpecializations($event)" [routerLink]="['/','qualifications-list']">
+      <ion-icon name="medkit"></ion-icon>
+      <ion-label>Specialities</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (ionSelect)="segmentClinics($event)" [routerLink]="['/','clinics-list']">
+      <ion-icon name="business"></ion-icon>
+      <ion-label>Clinic</ion-label>
+    </ion-segment-button>
+    <ion-segment-button (ionSelect)="segmentClinics($event)" [routerLink]="['/','laboratories']">
+      <ion-icon name="flask"></ion-icon>
+      <ion-label>Laboratories</ion-label> 
+    </ion-segment-button>
+    <ion-segment-button (ionSelect)="segmentClinics($event)" [routerLink]="['/','pharmacies']">
+      <ion-icon name="medical"></ion-icon>
+       <ion-label>Pharma</ion-label> 
+    </ion-segment-button>
+
+  </ion-segment>
+
+
 </ion-header>
 
 <ion-content>
-    
-</ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-buttons [routerLink]="['/','location-search']" padding *ngIf="currentLocation">
+    <ion-icon name="arrow-dropdown" class="larger-locate"></ion-icon>
+    {{currentLocation}}
+  </ion-buttons>
+
+
+  <ion-slides pager="true" #slides [options]="sliderConfig" autoplayDisableOnInteraction="false"
+    (ionSlideDidChange)="slides.startAutoplay();">
+    <ion-slide>
+      <ion-card class="welcome-card">
+        <ion-img src="/assets/health2.jpg"></ion-img>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card class="welcome-card">
+        <ion-img src="/assets/health4.jpg"></ion-img>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card class="welcome-card">
+        <ion-img src="/assets/health6.jpg"></ion-img>
+      </ion-card>
+    </ion-slide>
+    <ion-slide>
+      <ion-card class="welcome-card">
+        <ion-img src="/assets/health2.jpg"></ion-img>
+      </ion-card>
+    </ion-slide>
+
+  </ion-slides  >
+  <ion-item [routerLink]="['/','doctors-list']">
+    <h6>Top Rated Doctors</h6>
+    <ion-icon slot="end" name="arrow-forward"></ion-icon>
+  </ion-item>
+  <ion-slides #slides [options]="sliderConfig" >
+    <ion-slide *ngFor="let doctor of topDoctors">
+      <ion-card class="top-doctors">
+        <ion-icon name="bookmark" item-right padding class="larger-bookmark"></ion-icon>
+        <ion-card-header>
+          <ion-card-title *ngIf="doctor.paymentSettings">
+            {{doctor.paymentSettings.amount}} - {{doctor.firstName}}
+          </ion-card-title>
+        </ion-card-header>
+        <ion-avatar class="card-avatar">
+          <ion-img *ngIf="doctor.imageLink" [src]=doctor.imageLink></ion-img>
+        </ion-avatar>
+        <ion-card-content>
+          <ion-icon name="star" *ngFor="let index of genArray(doctor.totalRating)"></ion-icon>
+          <ion-icon name="star-half" *ngIf="doctor.totalRating % 1 !=0"></ion-icon>
+          <ion-badge>{{doctor.totalRating}}</ion-badge>
+          <ion-list>
+            <ion-item lines="none">
+              <ion-icon name="medkit"></ion-icon>
+            <!---- <ion-label text-center>{{doctor.specialization}} - {{currentDate.getFullYear()- doctor.practiceSince?.split('-')[0]}} Years Exp</ion-label> -->
+            </ion-item>
+          </ion-list>
+          <ion-button expand="full" [routerLink]="'/doctor-booking/'+ doctor.doctorIdpCode">Book Now</ion-button>
+        </ion-card-content>
+      </ion-card>
+    </ion-slide>
+  </ion-slides>
+  </ion-content>

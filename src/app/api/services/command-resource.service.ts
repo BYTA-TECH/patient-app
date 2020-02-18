@@ -14,10 +14,8 @@ import { AppointmentRequest } from '../models/appointment-request';
 import { ProcessPayment } from '../models/process-payment';
 import { AppointmentConfirmationRequest } from '../models/appointment-confirmation-request';
 import { PatientDTO } from '../models/patient-dto';
-import { Patient } from '../models/patient';
 import { OrderResponse } from '../models/order-response';
 import { OrderRequest } from '../models/order-request';
-import { UserRatingDTO } from '../models/user-rating-dto';
 import { ReviewDTO } from '../models/review-dto';
 
 /**
@@ -27,17 +25,16 @@ import { ReviewDTO } from '../models/review-dto';
   providedIn: 'root',
 })
 class CommandResourceService extends __BaseService {
-  static readonly createAdditionalInformationRequestUsingPOSTPath = '/api/appointments/additionalInformationRequest/{taskId}';
-  static readonly createConfirmPaymentUsingPOSTPath = '/api/appointments/confirmPayment/{taskId}';
-  static readonly createConfirmRegistrationUsingPOSTPath = '/api/appointments/confirmRegistration/{taskId}';
-  static readonly createInitiateAppointmentUsingPOSTPath = '/api/appointments/initiateAppointment';
-  static readonly createProcessPaymentUsingPOSTPath = '/api/appointments/processPayment/{taskId}';
-  static readonly sendAppointmentRequestUsingPOSTPath = '/api/appointments/sendAppointmentRequest/{taskId}';
-  static readonly createPatientUsingPOSTPath = '/api/patients';
-  static readonly modelToDtoUsingPOSTPath = '/api/patients/modelToDto';
-  static readonly createOrderPaymentUsingPOSTPath = '/api/payment/createOrder';
-  static readonly ratedoctorUsingPOSTPath = '/api/rating';
-  static readonly reviewdoctorUsingPOSTPath = '/api/review';
+  static readonly createAdditionalInformationRequestUsingPOSTPath = '/api/commands/appointments/additionalInformationRequest/{taskId}';
+  static readonly createConfirmPaymentUsingPOSTPath = '/api/commands/appointments/confirmPayment/{taskId}';
+  static readonly createConfirmRegistrationUsingPOSTPath = '/api/commands/appointments/confirmRegistration/{taskId}';
+  static readonly createInitiateAppointmentUsingPOSTPath = '/api/commands/appointments/initiateAppointment';
+  static readonly createProcessPaymentUsingPOSTPath = '/api/commands/appointments/processPayment/{taskId}';
+  static readonly sendAppointmentRequestUsingPOSTPath = '/api/commands/appointments/sendAppointmentRequest/{taskId}';
+  static readonly createPatientUsingPOSTPath = '/api/commands/patient';
+  static readonly updatePatientUsingPUTPath = '/api/commands/patient';
+  static readonly createOrderPaymentUsingPOSTPath = '/api/commands/payment/createOrder';
+  static readonly reviewdoctorUsingPOSTPath = '/api/commands/review';
 
   constructor(
     config: __Configuration,
@@ -63,7 +60,7 @@ class CommandResourceService extends __BaseService {
     __body = params.additionalInformationRequest;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/appointments/additionalInformationRequest/${params.taskId}`,
+      this.rootUrl + `/api/commands/appointments/additionalInformationRequest/${params.taskId}`,
       __body,
       {
         headers: __headers,
@@ -110,7 +107,7 @@ class CommandResourceService extends __BaseService {
     __body = params.paymentConfirmationRequest;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/appointments/confirmPayment/${params.taskId}`,
+      this.rootUrl + `/api/commands/appointments/confirmPayment/${params.taskId}`,
       __body,
       {
         headers: __headers,
@@ -151,7 +148,7 @@ class CommandResourceService extends __BaseService {
 
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/appointments/confirmRegistration/${taskId}`,
+      this.rootUrl + `/api/commands/appointments/confirmRegistration/${taskId}`,
       __body,
       {
         headers: __headers,
@@ -187,7 +184,7 @@ class CommandResourceService extends __BaseService {
     __body = appointmentRequest;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/appointments/initiateAppointment`,
+      this.rootUrl + `/api/commands/appointments/initiateAppointment`,
       __body,
       {
         headers: __headers,
@@ -229,7 +226,7 @@ class CommandResourceService extends __BaseService {
     __body = params.processPayment;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/appointments/processPayment/${params.taskId}`,
+      this.rootUrl + `/api/commands/appointments/processPayment/${params.taskId}`,
       __body,
       {
         headers: __headers,
@@ -276,7 +273,7 @@ class CommandResourceService extends __BaseService {
     __body = params.appointmentConfirmationRequest;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/appointments/sendAppointmentRequest/${params.taskId}`,
+      this.rootUrl + `/api/commands/appointments/sendAppointmentRequest/${params.taskId}`,
       __body,
       {
         headers: __headers,
@@ -317,7 +314,7 @@ class CommandResourceService extends __BaseService {
     __body = patientDTO;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/patients`,
+      this.rootUrl + `/api/commands/patient`,
       __body,
       {
         headers: __headers,
@@ -343,17 +340,17 @@ class CommandResourceService extends __BaseService {
   }
 
   /**
-   * @param patient patient
+   * @param patientDTO patientDTO
    * @return OK
    */
-  modelToDtoUsingPOSTResponse(patient: Patient): __Observable<__StrictHttpResponse<PatientDTO>> {
+  updatePatientUsingPUTResponse(patientDTO: PatientDTO): __Observable<__StrictHttpResponse<PatientDTO>> {
     let __params = this.newParams();
     let __headers = new HttpHeaders();
     let __body: any = null;
-    __body = patient;
+    __body = patientDTO;
     let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `/api/patients/modelToDto`,
+      'PUT',
+      this.rootUrl + `/api/commands/patient`,
       __body,
       {
         headers: __headers,
@@ -369,11 +366,11 @@ class CommandResourceService extends __BaseService {
     );
   }
   /**
-   * @param patient patient
+   * @param patientDTO patientDTO
    * @return OK
    */
-  modelToDtoUsingPOST(patient: Patient): __Observable<PatientDTO> {
-    return this.modelToDtoUsingPOSTResponse(patient).pipe(
+  updatePatientUsingPUT(patientDTO: PatientDTO): __Observable<PatientDTO> {
+    return this.updatePatientUsingPUTResponse(patientDTO).pipe(
       __map(_r => _r.body as PatientDTO)
     );
   }
@@ -389,7 +386,7 @@ class CommandResourceService extends __BaseService {
     __body = orderRequest;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/payment/createOrder`,
+      this.rootUrl + `/api/commands/payment/createOrder`,
       __body,
       {
         headers: __headers,
@@ -415,42 +412,6 @@ class CommandResourceService extends __BaseService {
   }
 
   /**
-   * @param userRatingDTO userRatingDTO
-   * @return OK
-   */
-  ratedoctorUsingPOSTResponse(userRatingDTO: UserRatingDTO): __Observable<__StrictHttpResponse<UserRatingDTO>> {
-    let __params = this.newParams();
-    let __headers = new HttpHeaders();
-    let __body: any = null;
-    __body = userRatingDTO;
-    let req = new HttpRequest<any>(
-      'POST',
-      this.rootUrl + `/api/rating`,
-      __body,
-      {
-        headers: __headers,
-        params: __params,
-        responseType: 'json'
-      });
-
-    return this.http.request<any>(req).pipe(
-      __filter(_r => _r instanceof HttpResponse),
-      __map((_r) => {
-        return _r as __StrictHttpResponse<UserRatingDTO>;
-      })
-    );
-  }
-  /**
-   * @param userRatingDTO userRatingDTO
-   * @return OK
-   */
-  ratedoctorUsingPOST(userRatingDTO: UserRatingDTO): __Observable<UserRatingDTO> {
-    return this.ratedoctorUsingPOSTResponse(userRatingDTO).pipe(
-      __map(_r => _r.body as UserRatingDTO)
-    );
-  }
-
-  /**
    * @param reviewDTO reviewDTO
    * @return OK
    */
@@ -461,7 +422,7 @@ class CommandResourceService extends __BaseService {
     __body = reviewDTO;
     let req = new HttpRequest<any>(
       'POST',
-      this.rootUrl + `/api/review`,
+      this.rootUrl + `/api/commands/review`,
       __body,
       {
         headers: __headers,

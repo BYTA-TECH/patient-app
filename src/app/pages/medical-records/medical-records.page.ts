@@ -12,29 +12,29 @@ import { Router } from '@angular/router';
 })
 export class MedicalRecordsPage implements OnInit {
 
-  constructor(private modalController:ModalController,private router:Router) { }
+  constructor(private modalController: ModalController, private router: Router) { }
+
+  medicalHistories: MedicalHistory[] = [];
+  segment = 'all';
+  searchTerm: string;
 
   ngOnInit() {
-    //this.medicalHistories=MEDICALRECORDS;
+    // this.medicalHistories=MEDICALRECORDS;
+  }
+  searchChanged() {
+  }
+  onSelectAyoosHR() {
+    this.segment = 'ayoosHR';
+  }
+  onSelectUploaded() {
+    this.segment = 'uploaded';
+  }
+  onSelectAll() {
+    this.segment = 'all';
   }
 
-  medicalHistories:MedicalHistory[]=[];
-  segment="all";
-  searchTerm:string;
-  searchChanged(){
-  }
-  onSelectAyoosHR(){
-    this.segment="ayoosHR";
-  }
-  onSelectUploaded(){
-    this.segment="uploaded";
-  }
-  onSelectAll(){
-    this.segment="all";
-  }
-
-  routeToDetailView(ref:string){
-    this.router.navigate(['/','medical-record-detail',ref]);
+  routeToDetailView(ref: string) {
+    this.router.navigate(['/', 'medical-record-detail', ref]);
   }
   async presentModal() {
     const modal = await this.modalController.create({

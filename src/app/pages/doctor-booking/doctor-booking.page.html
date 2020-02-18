@@ -1,0 +1,87 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title><strong>Book an Appointment</strong></ion-title>
+  </ion-toolbar>
+</ion-header>
+
+  <img *ngIf="doctor" [src]="'data:' +  doctor.imageLink+ ';base64,' + doctor.imageLink">
+
+   <div class="center">
+      <strong>
+      <ion-label>{{doctor?.firstName  + ' '}} 
+      </ion-label>
+    </strong><br> 
+    <ion-label color="secondary">{{doctor?.specialization}}
+      <!-- {{currentDate.getFullYear()-doctor?.practiceSince?.split('-')[0]}} Years of Exp</ion-label><br>  -->
+    <ion-icon name="star" *ngFor="let index of genRating(doctor?.totalRating)"></ion-icon>
+    <ion-icon name="star-half" *ngIf="doctor?.totalRating % 1 !=0"></ion-icon>
+    <ion-badge>{{doctor?.totalRating}}</ion-badge>
+  <!-- </div> -->
+  <ion-item> 
+    <ion-label slot="start">Pick a date</ion-label>
+    <ion-datetime displayFormat="DD MMM YYYY" min="2019" max="2025"
+      [(ngModel)]="datePick" picker-format="YYYY-MM-DD"
+      (ionChange)="loadSessions()"></ion-datetime>
+  </ion-item>
+  <ion-item lines="none">
+    <ion-icon name="partly-sunny" slot="start"></ion-icon>
+    <ion-label>Morning Session</ion-label>
+  </ion-item>
+  <ion-item *ngIf="slotsMorningSession.length==0" text-center lines="none">
+    <ion-img src="/assets/images/sadsmiley.png" class="img"></ion-img>
+    <ion-label color="secondary">Uh Oh! Doctor is not available
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let slot of slotsMorningSession">
+        <ion-button color="medium-contrast" class="size-tile"
+          (click)="initiateAppointment(slot.date,slot.fromTime,slot.toTime)">
+          <ion-label color="primary">{{getHour(slot.fromTime)}}:{{getMinutes(slot.fromTime)}}</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item lines="none">
+    <ion-icon name="sunny" slot="start"></ion-icon>
+    <ion-label>Afetrnoon Session</ion-label>
+  </ion-item>
+  <ion-item *ngIf="slotsAfternoonSession.length==0" text-center lines="none">
+    <ion-img src="/assets/images/sadsmiley.png" class="img"></ion-img>
+    <ion-label color="secondary">Uh Oh! Doctor is not available
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let slot of slotsAfternoonSession">
+        <ion-button color="medium-contrast"
+          class="size-tile"
+          (click)="initiateAppointment(slot.date,slot.fromTime,slot.toTime)">
+          <ion-label color="primary">{{getHour(slot.fromTime)}}:{{getMinutes(slot.fromTime)}}</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-item lines="none">
+    <ion-icon name="moon" slot="start"></ion-icon>
+    <ion-label>Evening Session</ion-label>
+  </ion-item>
+  <ion-item *ngIf="slotsEveningSession.length==0" text-center lines="none">
+    <ion-img src="/assets/images/sadsmiley.png" class="img"></ion-img>
+    <ion-label color="secondary">Uh Oh! Doctor is not available
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col *ngFor="let slot of slotsEveningSession">
+        <ion-button color="medium-contrast"
+          class="size-tile"
+          (click)="initiateAppointment(slot.date,slot.fromTime,slot.toTime)">
+          <ion-label color="primary">{{getHour(slot.fromTime)}}:{{getMinutes(slot.fromTime)}}</ion-label>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>

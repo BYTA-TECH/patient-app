@@ -57,8 +57,9 @@ export class KeycloakService {
                   }
                 ]
               });
+            }).then(() => {
+              success(res);
             });
-          success(res);
         })
         .catch(e => {
           err(e);

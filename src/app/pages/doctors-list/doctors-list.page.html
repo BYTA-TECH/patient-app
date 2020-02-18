@@ -1,0 +1,102 @@
+
+<ion-header>
+  <ion-toolbar >
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-item>
+      <ion-icon name="search" slot="start">ggggg</ion-icon>
+    <ion-input  lines="none" placeholder="Search doctors..." [(ngModel)]="searchTerm" (ionChange)="searchChanged()" clearInput padding></ion-input>
+  </ion-item>
+  </ion-toolbar>
+  <ion-toolbar no-border>
+    <ion-buttons >
+      <ion-button slot="start" (click)="filterModal()">
+        <ion-icon src="/assets/funnel.svg"></ion-icon>
+      </ion-button>
+      <ion-button (click)="presentMapModal()" slot="end">
+        <ion-icon name="map"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+
+  <ion-infinite-scroll threshold="100px" (ionInfinite)="loadData($event)">
+  <ion-infinite-scroll-content
+    loadingSpinner="bubbles">
+    <ion-grid>
+
+        <ion-row>
+  
+          <ion-col size="6" *ngFor="let doctor of doctors">
+            <ion-card>
+              <ion-card-content>
+               <ion-icon name="bookmark" slot="end"></ion-icon>
+               <img [src]="'data:' +  doctor
+               . imageContentType
+               + ';base64,' + doctor
+               . image
+               "> 
+              <ion-card-subtitle text-center *ngFor="let qualification of doctor.qualifications">
+                  <ion-badge>{{qualification}}</ion-badge>
+              </ion-card-subtitle>
+              <ion-card-subtitle text-center>
+                  <ion-text *ngIf="doctor.specialization">{{doctor.specialization}}</ion-text>
+                  <ion-text *ngIf="!doctor.specialization">Surgeon</ion-text>
+              </ion-card-subtitle>
+              <ion-card-subtitle text-center>
+                <!-- <app-rating [rating]="doctor.totalRating"></app-rating> -->
+              </ion-card-subtitle>
+            </ion-card-content>
+            <ion-button class="fullbutton" [routerLink]="'/doctor-booking/'+ doctor.doctorId">Book Now</ion-button>
+          </ion-card>
+          </ion-col>
+  
+        </ion-row>
+  
+      </ion-grid>
+  </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
+ 
+
+<!-- <ion-item lines="none">
+  <ion-icon name="funnel" slot="start" (click)="presentModal()"></ion-icon>  
+  <ion-icon name="map" slot="end" (click)="presentMapModal()"></ion-icon>
+</ion-item>
+<ion-grid>
+  <ion-row *ngFor="let gid of doctors">
+    <ion-col >
+      <ion-card *ngIf="grid?.firstCol" [routerLink]="['/','doctor-booking',grid.firstCol.id]">
+        <ion-card-content>
+                <ion-icon name="bookmark" slogt="end"></ion-icon>
+              <ion-img src="assets/doctor3.png" class="img-info" padding></ion-img>
+          <ion-card-title text-center>{{doctor.name}}</ion-card-title>
+          <ion-card-subtitle text-center>{{doctorspecialization}} - {{grid.firstCol.yearsOfExperience}}</ion-card-subtitle>
+          <ion-icon name="star" *ngFor="let index of genArray(grid.firstCol.ratings)" ></ion-icon>
+              <ion-icon name="star-half" *ngIf="grid.firstCol.ratings % 1 !=0" ></ion-icon>
+              <ion-badge>{{grid.firstCol.ratings}}</ion-badge>
+        </ion-card-content>
+       <ion-button class="fullbutton" [routerLink]="['/','doctor-booking',grid.firstCol.id]">Book Now</ion-button> 
+      </ion-card>
+    </ion-col>
+    <ion-col >
+        <ion-card *ngIf="grid?.secondCol" [routerLink]="['/','doctor-booking',grid.secondCol.id]">
+          <ion-card-content>
+                  <ion-icon name="bookmark" slogt="end"></ion-icon>
+              <ion-img src="assets/doctor3.png" class="img-info" padding></ion-img>
+              <ion-card-title text-center>{{grid.secondCol.name}}</ion-card-title>
+              <ion-card-subtitle text-center>{{grid.secondCol.specialization}} - {{grid.secondCol.yearsOfExperience}}</ion-card-subtitle>
+              <ion-icon name="star" *ngFor="let index of genArray(grid.secondCol.ratings)" ></ion-icon>
+              <ion-icon name="star-half" *ngIf="grid.secondCol.ratings % 1 !=0" ></ion-icon>
+              <ion-badge>{{grid.secondCol.ratings}}</ion-badge>
+            </ion-card-content>
+          ion-button class="fullbutton" [routerLink]="['/','doctor-booking',grid.secondCol.id]">Book Now</ion-button> 
+        </ion-card>
+      </ion-col>
+  </ion-row>
+</ion-grid> --> 
+
+</ion-content>

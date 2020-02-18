@@ -1,0 +1,38 @@
+
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title text-center><strong>Confirmation</strong></ion-title>
+  </ion-toolbar>
+</ion-header>
+s
+<ion-item lines="none">
+  <div *ngIf="approvalType=='manual'">
+    <ion-row>
+      <ion-col>
+        <ion-item lines="none" >
+          <ion-label>1) You will have to wait<br>until the doctor approves<br>the appointment</ion-label>
+        </ion-item>
+      </ion-col>
+      <ion-col>
+        <ion-item lines="none" >
+          <ion-label>2) Wait for the notification<br>once request is approved<br>please confirm appointment
+          </ion-label>
+        </ion-item>
+        <ion-item *ngIf="paymentEnabled" lines="none">
+            <ion-label>
+              3) You have to pay<br>in advance inorder to<br>book this doctor<br>'Pay on consultation' is not<br> available
+            </ion-label>
+          </ion-item>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+</ion-item>
+<ion-item lines="none" >
+  <ion-button padding-right slot="start">Cancel</ion-button>
+  <ion-button padding-right slot="end"  (click)='sendAppointmentRequest()'>Confirm</ion-button>
+</ion-item>
